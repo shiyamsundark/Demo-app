@@ -10,8 +10,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     
     steps:
     
@@ -28,10 +26,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    
-    - name: Print effective-settings (optional)
-      run: mvn help:effective-settings
-    
+       
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     
@@ -51,9 +46,6 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
     steps:    
     
     - uses: actions/checkout@v2
